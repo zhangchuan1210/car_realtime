@@ -1,6 +1,6 @@
+
 from extensions import db
 from models.car import Car
-
 
 class CarService:
     def get_car_by_id(self,car_id):

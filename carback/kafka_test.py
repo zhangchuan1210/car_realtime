@@ -25,7 +25,7 @@ messages = kafka_stream.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)
 
 # 输出到控制台
 query = messages.writeStream \
-    .outputMode("append") \
+    .outputMode("complete") \
     .option("checkpointLocation", "D:\\project\\checkpoint") \
     .format("console") \
     .start()

@@ -1,7 +1,11 @@
+import threading
+import time
+
 from flask import Flask
 from config import Config
 from extensions import db
 from flask_cors import CORS
+
 def create_app():
 # 初始化 Flask 应用和配置
   app = Flask(__name__)
@@ -15,7 +19,8 @@ def create_app():
   app.register_blueprint(schedular_controller)
   app.register_blueprint(page_controller)
   return app
+
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
 

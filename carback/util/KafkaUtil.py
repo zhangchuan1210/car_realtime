@@ -13,14 +13,9 @@ class KafkaUtil(object):
         producer = KafkaProducer(bootstrap_servers=Config.KAFKA_BROKER_URL)
         return producer
 
-    def produce(topic_name, message):
-        try:
-            KafkaUtil.createKafkaProducer().send(topic_name, value=message)
-        except Exception as e:
-            print("发生错误: {e}")
-
     @staticmethod
     def consumeBySpark(spark, topic_name):
         kafka_stream = spark.readStream.format("kafka").option("kafka.bootstrap.servers",
-                                                               Config.KAFKA_BROKER_URL).option("startingOffsets", "earliest").option("subscribe",topic_name).load()
+                                                               Config.KAFKA_BROKER_URL).option("failOnDataLoss", "false") \
+                                                               .option("startingOffsets", "earliest").option("subscribe",topic_name).load()
         return kafka_stream
